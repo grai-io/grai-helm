@@ -1,86 +1,84 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: the-guide
+  name: {{ .Values.backend.name }}
   labels:
-    app: the-guide
+    app: {{ .Values.backend.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.backend.replicaCount }}
   selector:
     matchLabels:
-      app: the-guide
+      app: {{ .Values.backend.name }}
   template:
     metadata:
       labels:
-        app: the-guide
+        app: {{ .Values.backend.name }}
     spec:
       containers:
-        - name: the-guide
-          image: ghcr.io/grai-io/grai-core/grai-server:0.1.7
+        - name: {{ .Values.backend.name }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
           readinessProbe:
             tcpSocket:
-              port: 8000
+              port: {{ .Values.backend.service.port }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             tcpSocket:
-              port: 8000
+              port: {{ .Values.backend.service.port }}
             initialDelaySeconds: 30
             periodSeconds: 30
           ports:
-            - name: the-guide
-              containerPort: 8000
+            - name: {{ .Values.backend.name }}
+              containerPort: {{ .Values.backend.service.port }}
               protocol: TCP
           env:
             - name: DB_HOST
-              value: localhost
+              value: {{ .Values.connections.database.host }}
             - name: DB_PORT
-              value: "5432"
-            - name: SECRET_KEY
-              value: "hdsfg9087dbfv8ysdf9h8yds9f87h7sd98gf7dsiuhvb"
+              value: "{{ .Values.connections.database.port }}"
+            - name: DB_NAME
+              value: {{ .Values.connections.database.database }}
+            - name: DB_USER
+              value: {{ .Values.connections.database.username }}
+            - name: DB_PASSWORD
+              value: {{ .Values.connections.database.password }}
+            # - name: SECRET_KEY
+            #   value: "hdsfg9087dbfv8ysdf9h8yds9f87h7sd98gf7dsiuhvb"
             - name: SERVER_HOST
-              value: unagi.api.grai.io
+              value: {{ .Values.backend.host }}
             - name: FRONTEND_HOST
-              value: unagi.app.grai.io
+              value: {{ .Values.frontend.host }}
             - name: CSRF_TRUSTED_ORIGINS
-              value: https://unagi.api.grai.io,https://unagi.app.grai.io
+              value: https://{{ .Values.frontend.host }},https://{{ .Values.backend.host }}
             - name: DJANGO_SUPERUSER_USERNAME
-              value: "null@grai.io"
+              value: {{ .Values.superuser.username }}
             - name: DJANGO_SUPERUSER_PASSWORD
-              value: "super_secret"
-        - name: db-pod
-          image: postgres:14.3-alpine
-          env:
-            - name: POSTGRES_USER
-              value: grai
-            - name: POSTGRES_PASSWORD
-              value: grai
-            - name: POSTGRES_DB
-              value: grai
+              value: {{ .Values.superuser.password }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Values.frontend.name }}
   labels:
-    app: frontend
+    app: {{ .Values.frontend.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
-      app: frontend
+      app: {{ .Values.frontend.name }}
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ .Values.frontend.name }}
     spec:
       containers:
-        - name: frontend
-          image: ghcr.io/grai-io/grai-core/grai-frontend:0.1.1
+        - name: {{ .Values.frontend.name }}
+          imagePullPolicy: "{{ .Values.frontend.image.pullPolicy }}"
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
           ports:
-            - name: frontend
-              containerPort: 80
+            - name: {{ .Values.frontend.name }}
+              containerPort: {{ .Values.frontend.service.port }}
               protocol: TCP
           env:
             - name: REACT_APP_SERVER_URL
-              value: https://unagi.api.grai.io
+              value: https://{{ .Values.backend.host }}

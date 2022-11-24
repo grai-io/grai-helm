@@ -1,34 +1,41 @@
+{{- if .Values.ingress.enabled -}}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
   name: the-guide
+  {{- with .Values.ingress.annotations }}
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: prod-ingress
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:627169567483:certificate/a959b428-8737-4242-82be-10430b7dc469
-    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
-  ingressClassName: alb
+  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   rules:
-    - host: unagi.api.grai.io
+    - host: {{ .Values.backend.host }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: the-guide-svc
+                name: {{ .Values.backend.name }}-svc
                 port:
-                  number: 8000
-    - host: unagi.app.grai.io
+                  number: {{ .Values.backend.service.port }}
+    - host: {{ .Values.frontend.host }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: frontend-svc
+                name: {{ .Values.frontend.name }}-svc
                 port:
-                  number: 80
+                  number: {{ .Values.frontend.service.port }}
+{{- end }}
