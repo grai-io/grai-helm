@@ -17,16 +17,6 @@ spec:
       containers:
         - name: {{ .Values.backend.name }}
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
-          readinessProbe:
-            tcpSocket:
-              port: {{ .Values.backend.service.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: {{ .Values.backend.service.port }}
-            initialDelaySeconds: 30
-            periodSeconds: 30
           ports:
             - name: {{ .Values.backend.name }}
               containerPort: {{ .Values.backend.service.port }}
