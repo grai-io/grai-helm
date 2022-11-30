@@ -17,6 +17,18 @@ spec:
       containers:
         - name: {{ .Values.backend.name }}
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.backend.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.backend.service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 30
           ports:
             - name: {{ .Values.backend.name }}
               containerPort: {{ .Values.backend.service.port }}
@@ -32,8 +44,6 @@ spec:
               value: {{ .Values.connections.database.username }}
             - name: DB_PASSWORD
               value: {{ .Values.connections.database.password }}
-            # - name: SECRET_KEY
-            #   value: "hdsfg9087dbfv8ysdf9h8yds9f87h7sd98gf7dsiuhvb"
             - name: SERVER_HOST
               value: {{ .Values.backend.host }}
             - name: FRONTEND_HOST
