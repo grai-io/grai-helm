@@ -53,7 +53,7 @@ global:
 
 connections:
   database:
-    host: "-postgresql"
+    host: "grai-postgresql"
     port: "5432"
     database: "grai"
     username: "grai"
