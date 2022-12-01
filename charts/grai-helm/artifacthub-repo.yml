@@ -10,3 +10,6 @@
 # NOT apply to ownership claim operations, which are processed immediately.
 #
 repositoryID: 2630836c-ef3f-4abf-8871-c641e2d70d94
+owners: # (optional, used to claim repository ownership)
+  - name: Edward Louth
+    email: edward@louths.com
