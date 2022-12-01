@@ -4,7 +4,7 @@
 
 backend:
   name: "backend"
-  host: "unagi.api.grai.io"
+  host: ""
 
   replicaCount: 1
 
@@ -18,7 +18,7 @@ backend:
 
 frontend:
   name: "frontend"
-  host: "unagi.app.grai.io"
+  host: ""
 
   replicaCount: 1
 
@@ -33,14 +33,7 @@ frontend:
 ingress:
   enabled: true
   className: "alb"
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: prod-ingress
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:627169567483:certificate/a959b428-8737-4242-82be-10430b7dc469
-    alb.ingress.kubernetes.io/ssl-redirect: "443"
-    alb.ingress.kubernetes.io/healthcheck-path: /health
+  annotations: {}
 
 superuser:
   username: "null@grai.io"
@@ -53,15 +46,15 @@ postgresql:
 global:
   postgresql:
     auth:
-      database: "unagi"
-      username: "unagi"
-      password: "unagi"
-      postgresPassword: "unagi"
+      database: "grai"
+      username: "grai"
+      password: "password"
+      postgresPassword: "password"
 
 connections:
   database:
-    host: "unagi-helm-postgresql"
+    host: "-postgresql"
     port: "5432"
-    database: "unagi"
-    username: "unagi"
-    password: "unagi"
+    database: "grai"
+    username: "grai"
+    password: "password"
