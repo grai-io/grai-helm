@@ -1,15 +1,8 @@
 # Grai Helm Chart
 
-Install helm dependencies
-
-```
-helm dependency update
-```
-
 Install chart
 
 ```
-helm upgrade -i [name] . --namespace [namespace]
+helm repo add grai https://charts.grai.io
+helm install grai grai/grai
 ```
-
-View configuration in `values.yaml`
