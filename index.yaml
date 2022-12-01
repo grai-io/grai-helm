@@ -3,7 +3,7 @@ entries:
   grai-helm:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-01T12:25:26.289906Z"
+    created: "2022-12-01T13:27:33.515276Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -14,6 +14,6 @@ entries:
     name: grai-helm
     type: application
     urls:
-    - https://grai-io.github.io/grai-helm/grai-helm-0.1.0.tgz
+    - https://charts.grai.io/grai-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-01T12:25:26.285455Z"
+generated: "2022-12-01T13:27:33.510944Z"
