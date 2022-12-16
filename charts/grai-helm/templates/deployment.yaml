@@ -1,83 +1,84 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.name }}
+  name: { { .Values.backend.name } }
   labels:
-    app: {{ .Values.backend.name }}
+    app: { { .Values.backend.name } }
 spec:
-  replicas: {{ .Values.backend.replicaCount }}
+  replicas: { { .Values.backend.replicaCount } }
   selector:
     matchLabels:
-      app: {{ .Values.backend.name }}
+      app: { { .Values.backend.name } }
   template:
     metadata:
       labels:
-        app: {{ .Values.backend.name }}
+        app: { { .Values.backend.name } }
     spec:
       containers:
-        - name: {{ .Values.backend.name }}
+        - name: { { .Values.backend.name } }
+          imagePullPolicy: "{{ .Values.backend.image.pullPolicy }}"
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
           readinessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.backend.service.port }}
+              port: { { .Values.backend.service.port } }
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.backend.service.port }}
+              port: { { .Values.backend.service.port } }
             initialDelaySeconds: 30
             periodSeconds: 30
           ports:
-            - name: {{ .Values.backend.name }}
-              containerPort: {{ .Values.backend.service.port }}
+            - name: { { .Values.backend.name } }
+              containerPort: { { .Values.backend.service.port } }
               protocol: TCP
           env:
             - name: DB_HOST
-              value: {{ .Values.connections.database.host }}
+              value: { { .Values.connections.database.host } }
             - name: DB_PORT
               value: "{{ .Values.connections.database.port }}"
             - name: DB_NAME
-              value: {{ .Values.connections.database.database }}
+              value: { { .Values.connections.database.database } }
             - name: DB_USER
-              value: {{ .Values.connections.database.username }}
+              value: { { .Values.connections.database.username } }
             - name: DB_PASSWORD
-              value: {{ .Values.connections.database.password }}
+              value: { { .Values.connections.database.password } }
             - name: SERVER_HOST
-              value: {{ .Values.backend.host }}
+              value: { { .Values.backend.host } }
             - name: FRONTEND_HOST
-              value: {{ .Values.frontend.host }}
+              value: { { .Values.frontend.host } }
             - name: CSRF_TRUSTED_ORIGINS
               value: https://{{ .Values.frontend.host }},https://{{ .Values.backend.host }}
             - name: DJANGO_SUPERUSER_USERNAME
-              value: {{ .Values.superuser.username }}
+              value: { { .Values.superuser.username } }
             - name: DJANGO_SUPERUSER_PASSWORD
-              value: {{ .Values.superuser.password }}
+              value: { { .Values.superuser.password } }
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.frontend.name }}
+  name: { { .Values.frontend.name } }
   labels:
-    app: {{ .Values.frontend.name }}
+    app: { { .Values.frontend.name } }
 spec:
-  replicas: {{ .Values.frontend.replicaCount }}
+  replicas: { { .Values.frontend.replicaCount } }
   selector:
     matchLabels:
-      app: {{ .Values.frontend.name }}
+      app: { { .Values.frontend.name } }
   template:
     metadata:
       labels:
-        app: {{ .Values.frontend.name }}
+        app: { { .Values.frontend.name } }
     spec:
       containers:
-        - name: {{ .Values.frontend.name }}
+        - name: { { .Values.frontend.name } }
           imagePullPolicy: "{{ .Values.frontend.image.pullPolicy }}"
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
           ports:
-            - name: {{ .Values.frontend.name }}
-              containerPort: {{ .Values.frontend.service.port }}
+            - name: { { .Values.frontend.name } }
+              containerPort: { { .Values.frontend.service.port } }
               protocol: TCP
           env:
             - name: REACT_APP_SERVER_URL
