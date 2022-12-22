@@ -38,6 +38,7 @@ ingress:
 superuser:
   username: "null@grai.io"
   password: "super_secret"
+  workspace: "Workspace1"
 
 postgresql:
   enabled: true
