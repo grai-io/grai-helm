@@ -57,7 +57,7 @@ spec:
               value: {{ .Values.superuser.password }}
             - name: DJANGO_SUPERUSER_WORKSPACE
               value: {{ .Values.superuser.workspace }}
-            - name: - FRONTEND_URL
+            - name: FRONTEND_URL
               values: https://{{ .Values.frontend.host }}
 ---
 apiVersion: apps/v1

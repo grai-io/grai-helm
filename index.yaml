@@ -3,7 +3,23 @@ entries:
   grai:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-22T13:11:04.229033Z"
+    created: "2022-12-23T16:03:48.504662Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.22
+    description: A Helm chart for Kubernetes
+    digest: ac46009663016cd7a0954b128e2c9f1daa687ccda09d9504f70739ac6c5ceec5
+    icon: https://www.grai.io/icons/icon-512x512.png
+    name: grai
+    type: application
+    urls:
+    - https://charts.grai.io/grai-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-12-23T16:03:48.500778Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -19,7 +35,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-22T13:11:04.225015Z"
+    created: "2022-12-23T16:03:48.496655Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -35,7 +51,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-22T13:11:04.221786Z"
+    created: "2022-12-23T16:03:48.490998Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -49,4 +65,4 @@ entries:
     urls:
     - https://charts.grai.io/grai-0.1.1.tgz
     version: 0.1.1
-generated: "2022-12-22T13:11:04.217916Z"
+generated: "2022-12-23T16:03:48.485854Z"
