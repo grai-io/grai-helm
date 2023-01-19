@@ -3,7 +3,27 @@ entries:
   grai:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-23T16:09:16.234055Z"
+    created: "2023-01-19T18:55:42.987789Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.9
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.4.3
+    description: A Helm chart for Kubernetes
+    digest: a0f90369f4384cc12fc63732d44a2fbac21d181b79f7e9d654f9182267be2bb8
+    icon: https://www.grai.io/icons/icon-512x512.png
+    name: grai
+    type: application
+    urls:
+    - https://charts.grai.io/grai-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-01-19T18:55:42.976443Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -19,7 +39,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-23T16:09:16.230941Z"
+    created: "2023-01-19T18:55:42.966846Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -35,7 +55,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-23T16:09:16.227324Z"
+    created: "2023-01-19T18:55:42.96136Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -51,7 +71,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-23T16:09:16.222949Z"
+    created: "2023-01-19T18:55:42.95731Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -67,7 +87,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-23T16:09:16.219231Z"
+    created: "2023-01-19T18:55:42.945778Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -81,4 +101,4 @@ entries:
     urls:
     - https://charts.grai.io/grai-0.1.1.tgz
     version: 0.1.1
-generated: "2022-12-23T16:09:16.21411Z"
+generated: "2023-01-19T18:55:42.940077Z"
