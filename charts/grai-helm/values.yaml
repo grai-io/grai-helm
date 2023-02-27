@@ -16,6 +16,8 @@ backend:
   service:
     port: 8000
 
+  env: {}
+
 frontend:
   name: "frontend"
   host: ""

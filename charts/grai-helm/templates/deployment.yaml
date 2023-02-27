@@ -65,6 +65,9 @@ spec:
               value: redis://{{ .Values.connections.redis.host }}:{{ .Values.connections.redis.port }}/0
             - name: SECRET_KEY
               value: 'not-secret'
+          {{- with .Values.backend.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
