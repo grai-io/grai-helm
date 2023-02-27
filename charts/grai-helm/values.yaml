@@ -11,7 +11,7 @@ backend:
   image:
     repository: ghcr.io/grai-io/grai-core/grai-server
     pullPolicy: Always
-    tag: "0.1.13"
+    tag: "0.1.14"
 
   service:
     port: 8000
@@ -38,7 +38,7 @@ celery_worker:
   image:
     repository: ghcr.io/grai-io/grai-core/grai-server
     pullPolicy: Always
-    tag: "0.1.13"
+    tag: "0.1.14"
 
 celery_beat_worker:
   name: "celery-beat-worker"
@@ -48,7 +48,7 @@ celery_beat_worker:
   image:
     repository: ghcr.io/grai-io/grai-core/grai-server
     pullPolicy: Always
-    tag: "0.1.13"
+    tag: "0.1.14"
 
 ingress:
   enabled: true
